@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Gestion_FourriereModelStoreContainer" CdmEntityContainer="Gestion_FourriereContext">
+    <EntitySetMapping Name="Administrateurs">
+      <EntityTypeMapping TypeName="Gestion_FourriereModel.Administrateur">
+        <MappingFragment StoreEntitySet="Administrateur">
+          <ScalarProperty Name="Login_Admin" ColumnName="Login_Admin" />
+          <ScalarProperty Name="Mdp" ColumnName="Mdp" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Num_Tel" ColumnName="Num_Tel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Agents">
+      <EntityTypeMapping TypeName="Gestion_FourriereModel.Agent">
+        <MappingFragment StoreEntitySet="Agent">
+          <ScalarProperty Name="Login_Agent" ColumnName="Login_Agent" />
+          <ScalarProperty Name="Mdp" ColumnName="Mdp" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Num_Tel" ColumnName="Num_Tel" />
+          <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+          <ScalarProperty Name="Login_Admin" ColumnName="Login_Admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fourrieres">
+      <EntityTypeMapping TypeName="Gestion_FourriereModel.Fourriere">
+        <MappingFragment StoreEntitySet="Fourriere">
+          <ScalarProperty Name="Id_Fourriere" ColumnName="Id_Fourriere" />
+          <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+          <ScalarProperty Name="Login_Admin" ColumnName="Login_Admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Montants">
+      <EntityTypeMapping TypeName="Gestion_FourriereModel.Montant">
+        <MappingFragment StoreEntitySet="Montant">
+          <ScalarProperty Name="Date_Montant" ColumnName="Date_Montant" />
+          <ScalarProperty Name="Montant1" ColumnName="Montant" />
+          <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+          <ScalarProperty Name="Login_Agent" ColumnName="Login_Agent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Gestion_FourriereModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicules">
+      <EntityTypeMapping TypeName="Gestion_FourriereModel.Vehicule">
+        <MappingFragment StoreEntitySet="Vehicule">
+          <ScalarProperty Name="Immatriculation" ColumnName="Immatriculation" />
+          <ScalarProperty Name="Marque" ColumnName="Marque" />
+          <ScalarProperty Name="Date_entree" ColumnName="Date_entree" />
+          <ScalarProperty Name="Date_Sortiee" ColumnName="Date_Sortiee" />
+          <ScalarProperty Name="Num_carte_grise" ColumnName="Num_carte_grise" />
+          <ScalarProperty Name="Nom_Prenom_Proprietaire" ColumnName="Nom_Prenom_Proprietaire" />
+          <ScalarProperty Name="CIN_Conducteur" ColumnName="CIN_Conducteur" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+          <ScalarProperty Name="Login_Agent" ColumnName="Login_Agent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

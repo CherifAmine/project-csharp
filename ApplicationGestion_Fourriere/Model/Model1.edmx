@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Gestion_FourriereModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="Login_Admin" />
+          </Key>
+          <Property Name="Login_Admin" Type="int" Nullable="false" />
+          <Property Name="Mdp" Type="varchar" MaxLength="50" />
+          <Property Name="Nom" Type="varchar" MaxLength="50" />
+          <Property Name="Prenom" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Num_Tel" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="Login_Agent" />
+          </Key>
+          <Property Name="Login_Agent" Type="int" Nullable="false" />
+          <Property Name="Mdp" Type="varchar" MaxLength="50" />
+          <Property Name="Nom" Type="varchar" MaxLength="50" />
+          <Property Name="Prenom" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Num_Tel" Type="varchar" MaxLength="50" />
+          <Property Name="Nom_Fourriere" Type="varchar" MaxLength="50" />
+          <Property Name="Login_Admin" Type="int" />
+        </EntityType>
+        <EntityType Name="Fourriere">
+          <Key>
+            <PropertyRef Name="Id_Fourriere" />
+          </Key>
+          <Property Name="Id_Fourriere" Type="int" Nullable="false" />
+          <Property Name="Nom_Fourriere" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login_Admin" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Montant">
+          <Key>
+            <PropertyRef Name="Date_Montant" />
+            <PropertyRef Name="Nom_Fourriere" />
+          </Key>
+          <Property Name="Date_Montant" Type="date" Nullable="false" />
+          <Property Name="Montant" Type="float" />
+          <Property Name="Nom_Fourriere" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login_Agent" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Vehicule">
+          <Key>
+            <PropertyRef Name="Immatriculation" />
+            <PropertyRef Name="Date_entree" />
+          </Key>
+          <Property Name="Immatriculation" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Marque" Type="varchar" MaxLength="50" />
+          <Property Name="Date_entree" Type="date" Nullable="false" />
+          <Property Name="Date_Sortiee" Type="date" />
+          <Property Name="Num_carte_grise" Type="varchar" MaxLength="50" />
+          <Property Name="Nom_Prenom_Proprietaire" Type="varchar" MaxLength="50" />
+          <Property Name="CIN_Conducteur" Type="int" />
+          <Property Name="Prix" Type="float" />
+          <Property Name="Nom_Fourriere" Type="varchar" MaxLength="50" />
+          <Property Name="Login_Agent" Type="int" />
+        </EntityType>
+        <Association Name="FK_Agent_Administrateur">
+          <End Role="Administrateur" Type="Self.Administrateur" Multiplicity="0..1" />
+          <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrateur">
+              <PropertyRef Name="Login_Admin" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="Login_Admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fourriere_Administrateur">
+          <End Role="Administrateur" Type="Self.Administrateur" Multiplicity="1" />
+          <End Role="Fourriere" Type="Self.Fourriere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrateur">
+              <PropertyRef Name="Login_Admin" />
+            </Principal>
+            <Dependent Role="Fourriere">
+              <PropertyRef Name="Login_Admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Montant_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+          <End Role="Montant" Type="Self.Montant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="Login_Agent" />
+            </Principal>
+            <Dependent Role="Montant">
+              <PropertyRef Name="Login_Agent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicule_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="Login_Agent" />
+            </Principal>
+            <Dependent Role="Vehicule">
+              <PropertyRef Name="Login_Agent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Gestion_FourriereModelStoreContainer">
+          <EntitySet Name="Administrateur" EntityType="Self.Administrateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fourriere" EntityType="Self.Fourriere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Montant" EntityType="Self.Montant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicule" EntityType="Self.Vehicule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Agent_Administrateur" Association="Self.FK_Agent_Administrateur">
+            <End Role="Administrateur" EntitySet="Administrateur" />
+            <End Role="Agent" EntitySet="Agent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fourriere_Administrateur" Association="Self.FK_Fourriere_Administrateur">
+            <End Role="Administrateur" EntitySet="Administrateur" />
+            <End Role="Fourriere" EntitySet="Fourriere" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Montant_Agent" Association="Self.FK_Montant_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Montant" EntitySet="Montant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicule_Agent" Association="Self.FK_Vehicule_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Vehicule" EntitySet="Vehicule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Gestion_FourriereModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="Login_Admin" />
+          </Key>
+          <Property Name="Login_Admin" Type="Int32" Nullable="false" />
+          <Property Name="Mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Num_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Agents" Relationship="Self.FK_Agent_Administrateur" FromRole="Administrateur" ToRole="Agent" />
+          <NavigationProperty Name="Fourrieres" Relationship="Self.FK_Fourriere_Administrateur" FromRole="Administrateur" ToRole="Fourriere" />
+        </EntityType>
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="Login_Agent" />
+          </Key>
+          <Property Name="Login_Agent" Type="Int32" Nullable="false" />
+          <Property Name="Mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Num_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nom_Fourriere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Login_Admin" Type="Int32" />
+          <NavigationProperty Name="Administrateur" Relationship="Self.FK_Agent_Administrateur" FromRole="Agent" ToRole="Administrateur" />
+          <NavigationProperty Name="Montants" Relationship="Self.FK_Montant_Agent" FromRole="Agent" ToRole="Montant" />
+          <NavigationProperty Name="Vehicules" Relationship="Self.FK_Vehicule_Agent" FromRole="Agent" ToRole="Vehicule" />
+        </EntityType>
+        <EntityType Name="Fourriere">
+          <Key>
+            <PropertyRef Name="Id_Fourriere" />
+          </Key>
+          <Property Name="Id_Fourriere" Type="Int32" Nullable="false" />
+          <Property Name="Nom_Fourriere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login_Admin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Administrateur" Relationship="Self.FK_Fourriere_Administrateur" FromRole="Fourriere" ToRole="Administrateur" />
+        </EntityType>
+        <EntityType Name="Montant">
+          <Key>
+            <PropertyRef Name="Date_Montant" />
+            <PropertyRef Name="Nom_Fourriere" />
+          </Key>
+          <Property Name="Date_Montant" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Montant1" Type="Double" />
+          <Property Name="Nom_Fourriere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login_Agent" Type="Int32" />
+          <NavigationProperty Name="Agent" Relationship="Self.FK_Montant_Agent" FromRole="Montant" ToRole="Agent" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Vehicule">
+          <Key>
+            <PropertyRef Name="Immatriculation" />
+            <PropertyRef Name="Date_entree" />
+          </Key>
+          <Property Name="Immatriculation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_entree" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_Sortiee" Type="DateTime" Precision="0" />
+          <Property Name="Num_carte_grise" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nom_Prenom_Proprietaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CIN_Conducteur" Type="Int32" />
+          <Property Name="Prix" Type="Double" />
+          <Property Name="Nom_Fourriere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Login_Agent" Type="Int32" />
+          <NavigationProperty Name="Agent" Relationship="Self.FK_Vehicule_Agent" FromRole="Vehicule" ToRole="Agent" />
+        </EntityType>
+        <Association Name="FK_Agent_Administrateur">
+          <End Role="Administrateur" Type="Self.Administrateur" Multiplicity="0..1" />
+          <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrateur">
+              <PropertyRef Name="Login_Admin" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="Login_Admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fourriere_Administrateur">
+          <End Role="Administrateur" Type="Self.Administrateur" Multiplicity="1" />
+          <End Role="Fourriere" Type="Self.Fourriere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrateur">
+              <PropertyRef Name="Login_Admin" />
+            </Principal>
+            <Dependent Role="Fourriere">
+              <PropertyRef Name="Login_Admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Montant_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+          <End Role="Montant" Type="Self.Montant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="Login_Agent" />
+            </Principal>
+            <Dependent Role="Montant">
+              <PropertyRef Name="Login_Agent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicule_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="Login_Agent" />
+            </Principal>
+            <Dependent Role="Vehicule">
+              <PropertyRef Name="Login_Agent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Gestion_FourriereContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrateurs" EntityType="Self.Administrateur" />
+          <EntitySet Name="Agents" EntityType="Self.Agent" />
+          <EntitySet Name="Fourrieres" EntityType="Self.Fourriere" />
+          <EntitySet Name="Montants" EntityType="Self.Montant" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Vehicules" EntityType="Self.Vehicule" />
+          <AssociationSet Name="FK_Agent_Administrateur" Association="Self.FK_Agent_Administrateur">
+            <End Role="Administrateur" EntitySet="Administrateurs" />
+            <End Role="Agent" EntitySet="Agents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fourriere_Administrateur" Association="Self.FK_Fourriere_Administrateur">
+            <End Role="Administrateur" EntitySet="Administrateurs" />
+            <End Role="Fourriere" EntitySet="Fourrieres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Montant_Agent" Association="Self.FK_Montant_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Montant" EntitySet="Montants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicule_Agent" Association="Self.FK_Vehicule_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Vehicule" EntitySet="Vehicules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Gestion_FourriereModelStoreContainer" CdmEntityContainer="Gestion_FourriereContext">
+          <EntitySetMapping Name="Administrateurs">
+            <EntityTypeMapping TypeName="Gestion_FourriereModel.Administrateur">
+              <MappingFragment StoreEntitySet="Administrateur">
+                <ScalarProperty Name="Login_Admin" ColumnName="Login_Admin" />
+                <ScalarProperty Name="Mdp" ColumnName="Mdp" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Num_Tel" ColumnName="Num_Tel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Agents">
+            <EntityTypeMapping TypeName="Gestion_FourriereModel.Agent">
+              <MappingFragment StoreEntitySet="Agent">
+                <ScalarProperty Name="Login_Agent" ColumnName="Login_Agent" />
+                <ScalarProperty Name="Mdp" ColumnName="Mdp" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Num_Tel" ColumnName="Num_Tel" />
+                <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+                <ScalarProperty Name="Login_Admin" ColumnName="Login_Admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fourrieres">
+            <EntityTypeMapping TypeName="Gestion_FourriereModel.Fourriere">
+              <MappingFragment StoreEntitySet="Fourriere">
+                <ScalarProperty Name="Id_Fourriere" ColumnName="Id_Fourriere" />
+                <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+                <ScalarProperty Name="Login_Admin" ColumnName="Login_Admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Montants">
+            <EntityTypeMapping TypeName="Gestion_FourriereModel.Montant">
+              <MappingFragment StoreEntitySet="Montant">
+                <ScalarProperty Name="Date_Montant" ColumnName="Date_Montant" />
+                <ScalarProperty Name="Montant1" ColumnName="Montant" />
+                <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+                <ScalarProperty Name="Login_Agent" ColumnName="Login_Agent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Gestion_FourriereModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicules">
+            <EntityTypeMapping TypeName="Gestion_FourriereModel.Vehicule">
+              <MappingFragment StoreEntitySet="Vehicule">
+                <ScalarProperty Name="Immatriculation" ColumnName="Immatriculation" />
+                <ScalarProperty Name="Marque" ColumnName="Marque" />
+                <ScalarProperty Name="Date_entree" ColumnName="Date_entree" />
+                <ScalarProperty Name="Date_Sortiee" ColumnName="Date_Sortiee" />
+                <ScalarProperty Name="Num_carte_grise" ColumnName="Num_carte_grise" />
+                <ScalarProperty Name="Nom_Prenom_Proprietaire" ColumnName="Nom_Prenom_Proprietaire" />
+                <ScalarProperty Name="CIN_Conducteur" ColumnName="CIN_Conducteur" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="Nom_Fourriere" ColumnName="Nom_Fourriere" />
+                <ScalarProperty Name="Login_Agent" ColumnName="Login_Agent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

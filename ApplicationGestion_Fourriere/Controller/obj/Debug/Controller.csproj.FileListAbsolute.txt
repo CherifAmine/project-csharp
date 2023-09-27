@@ -1,0 +1,15 @@
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\Controller.dll.config
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\Controller.dll
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\Controller.pdb
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\EntityFramework.dll
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\Model.dll
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\Model.pdb
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\Model.dll.config
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\EntityFramework.xml
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\obj\Debug\Controller.csprojAssemblyReference.cache
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\obj\Debug\Controller.csproj.CoreCompileInputs.cache
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\obj\Debug\Controller.csproj.CopyComplete
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\obj\Debug\Controller.dll
+C:\Users\hp\source\repos\ApplicationGestion_Fourriere\Controller\obj\Debug\Controller.pdb
